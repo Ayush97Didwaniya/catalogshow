@@ -1,0 +1,49 @@
+{% extends "main.html" %} {% block content %}
+</br>
+</br>
+<div class = 'flash'>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}    
+    <ul>
+       {% for message in messages %}
+       <li> <strong> {{ message }} </strong> </li>
+       {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+ </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+
+            <ul>
+                <li>
+                    <h2>Category</h2>
+                    {% for i in categories %}
+                    <a href="{{url_for('items', category_id = i.id )}}">
+                        <p>{{ i.name }}</p>
+                    </a>
+                    {% endfor %}
+                </li>
+                <li>
+                    <h2>latestItems</h2>
+                    {% for i in items %}
+                    <a href="{{url_for('description', category_id = i.category_id, item_id = i.id )}}">
+                        <p>{{ i.name }} ( {{ i.category.name }} )</p>
+                    </a>
+                    {% endfor %}
+                </li>
+                <li>
+                    {% if login.get('username') != None %}
+                    <a href="{{url_for('add_item')}}">
+                        <h4>add item</h4>
+                    </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
